@@ -1,6 +1,6 @@
 package aes_cnx
 
-// xlattice_go/protocol/aes_cnx/helloAndReply.go
+// xlProtocol_go/aes_cnx/helloAndReply.go
 
 import (
 	"bytes"
@@ -8,8 +8,8 @@ import (
 	"crypto/cipher"
 	"crypto/rsa"
 	"crypto/sha1"
-	xc "github.com/jddixon/xlattice_go/crypto"
-	xr "github.com/jddixon/xlattice_go/rnglib"
+	xr "github.com/jddixon/rnglib_go"
+	xc "github.com/jddixon/xlCrypto_go"
 )
 
 const (

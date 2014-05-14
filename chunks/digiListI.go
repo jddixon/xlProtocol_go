@@ -1,10 +1,8 @@
 package chunks
 
-// xlattice_go/protocol/chunks/digiListI.go
+// xlProtocol_go/chunks/digiListI.go
 
-import (
-//	"crypto/rsa"
-)
+import ()
 
 type DigiListI interface {
 

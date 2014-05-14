@@ -1,6 +1,6 @@
 package chunks
 
-// xlattice_go/protocol/chunks/digiList.go
+// xlProtocol_go/chunks/digiList.go
 
 import (
 	"crypto"
@@ -10,8 +10,8 @@ import (
 	"encoding/base64"
 	"encoding/binary"
 	"fmt"
-	xc "github.com/jddixon/xlattice_go/crypto"
-	xu "github.com/jddixon/xlattice_go/util"
+	xc "github.com/jddixon/xlCrypto_go"
+	xu "github.com/jddixon/xlUtil_go"
 	"strings"
 )
 

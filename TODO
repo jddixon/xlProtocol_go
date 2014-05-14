@@ -1,0 +1,5 @@
+xlProtocol_go/TODO
+
+2014-05-14
+    * remove aes_cnx/helloAndReply_test.go dependency on
+        xlattice_go/node

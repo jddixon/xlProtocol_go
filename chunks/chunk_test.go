@@ -1,13 +1,13 @@
 package chunks
 
-// xlattice_go/protocol/chunks/chunk_test.go
+// xlProtocol_go/chunks/chunk_test.go
 
 import (
 	"bytes"
 	"code.google.com/p/go.crypto/sha3"
 	"fmt"
-	xi "github.com/jddixon/xlattice_go/nodeID"
-	xr "github.com/jddixon/xlattice_go/rnglib"
+	xr "github.com/jddixon/rnglib_go"
+	xi "github.com/jddixon/xlNodeID_go"
 	. "gopkg.in/check.v1"
 )
 

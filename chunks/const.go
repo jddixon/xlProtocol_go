@@ -1,6 +1,6 @@
 package chunks
 
-// xlattice_go/protocol/chunks/const.go
+// xlProtocol_go/chunks/const.go
 
 const (
 	INDENT = "  "

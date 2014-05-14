@@ -1,13 +1,13 @@
 package chunks
 
-// xlattice_go/protocol/chunks/chunk.go
+// xlProtocol_go/chunks/chunk.go
 
 import (
 	"code.google.com/p/go.crypto/sha3"
 	"encoding/binary"
 	"fmt"
-	xc "github.com/jddixon/xlattice_go/crypto"
-	xi "github.com/jddixon/xlattice_go/nodeID"
+	xc "github.com/jddixon/xlCrypto_go"
+	xi "github.com/jddixon/xlNodeID_go"
 )
 
 var _ = fmt.Print

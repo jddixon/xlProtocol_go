@@ -3,11 +3,8 @@ package aes_cnx
 import (
 	"crypto/rand"
 	"crypto/rsa"
-	//"encoding/hex"
-	//"fmt"
-	//xn "github.com/jddixon/xlattice_go/node"
-	xi "github.com/jddixon/xlattice_go/nodeID"
-	xr "github.com/jddixon/xlattice_go/rnglib"
+	xr "github.com/jddixon/rnglib_go"
+	xi "github.com/jddixon/xlNodeID_go"
 	. "gopkg.in/check.v1"
 	"testing"
 )

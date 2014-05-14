@@ -1,15 +1,14 @@
 package chunks
 
-// xlattice_go/protocol/chunks/chunkList.go
+// xlProtocol_go/chunks/chunkList.go
 
 import (
 	"bytes"
 	"code.google.com/p/go.crypto/sha3"
 	"crypto/rsa"
-	//"encoding/hex"
 	"fmt"
-	"github.com/jddixon/xlattice_go/u"
-	"github.com/jddixon/xlattice_go/util"
+	u "github.com/jddixon/xlU_go"
+	xu "github.com/jddixon/xlUtil_go"
 	"io"
 )
 
@@ -29,7 +28,7 @@ type ChunkList struct {
 // are sent over the wire and are included in the chunk hash but are
 // not considered in calculating datum, the message hash.
 //
-func NewChunkList(sk *rsa.PublicKey, title string, timestamp util.Timestamp,
+func NewChunkList(sk *rsa.PublicKey, title string, timestamp xu.Timestamp,
 	reader io.Reader, length int64, datum []byte, uStore u.UI) (
 	cl *ChunkList, err error) {
 

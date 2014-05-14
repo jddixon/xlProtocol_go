@@ -1,6 +1,6 @@
 package chunks
 
-// xlattice_go/protocol/chunks/chunkListAssyDisassy_test.go
+// xlProtocol_go/chunks/chunkListAssyDisassy_test.go
 
 import (
 	"bytes"
@@ -9,11 +9,11 @@ import (
 	"crypto/rsa"
 	"encoding/hex"
 	"fmt"
-	xi "github.com/jddixon/xlattice_go/nodeID"
-	xr "github.com/jddixon/xlattice_go/rnglib"
-	"github.com/jddixon/xlattice_go/u"
-	xu "github.com/jddixon/xlattice_go/util"
-	xf "github.com/jddixon/xlattice_go/util/lfs"
+	xr "github.com/jddixon/rnglib_go"
+	xi "github.com/jddixon/xlNodeID_go"
+	u "github.com/jddixon/xlU_go"
+	xu "github.com/jddixon/xlUtil_go"
+	xf "github.com/jddixon/xlUtil_go/lfs"
 	. "gopkg.in/check.v1"
 	"os"
 	"path"

@@ -1,35 +1,14 @@
 package aes_cnx
 
-// xlattice_go/protocol/aes_cnx/helloAndReply_test.go
+// xlProtocol_go/aes_cnx/helloAndReply_test.go
 
 import (
 	"crypto/aes"
 	"fmt"
+	xr "github.com/jddixon/rnglib_go"
 	xn "github.com/jddixon/xlattice_go/node"
-	xr "github.com/jddixon/xlattice_go/rnglib"
 	. "gopkg.in/check.v1"
 )
-
-// THESE DUPLICATE FUNCTIONS IN crypto_test.go: /////////////////////
-//
-// func (s *XLSuite) makeAnID(c *C, rng *xr.PRNG) (id []byte) {
-// 	id = make([]byte, SHA3_LEN)
-// 	rng.NextBytes(&id)
-// 	return
-// }
-// func (s *XLSuite) makeANodeID(c *C, rng *xr.PRNG) (nodeID *xi.NodeID) {
-// 	id := s.makeAnID(c, rng)
-// 	nodeID, err := xi.New(id)
-// 	c.Assert(err, IsNil)
-// 	c.Assert(nodeID, Not(IsNil))
-// 	return
-// }
-// func (s *XLSuite) makeAnRSAKey(c *C) (key *rsa.PrivateKey) {
-// 	key, err := rsa.GenerateKey(rand.Reader, 2048)
-// 	c.Assert(err, IsNil)
-// 	c.Assert(key, Not(IsNil))
-// 	return key
-// } // END DUPLICATE CODE //////////////////////////////////////////
 
 func (s *XLSuite) TestHelloAndReply(c *C) {
 	if VERBOSITY > 0 {

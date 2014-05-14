@@ -1,5 +1,5 @@
 package chunks
 
-// xlattice_go/protocol/chunks/chunker.go
+// xlProtocol_go/chunks/chunker.go
 
 import ()
