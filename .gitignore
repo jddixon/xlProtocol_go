@@ -1,2 +1,8 @@
+*.java
+*.jar
 junk*
+*.log
+.merkle
 *.swp
+tmp
+*ZZZ
