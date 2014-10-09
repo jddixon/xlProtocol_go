@@ -1,5 +1,10 @@
 xlProtocol_go/CHANGES
 
+v0.5.1
+    2014-10-09
+        * changes to conform to new xlU.go API
+        * experiment: change MAX_CHUNK_BYTES to 1024*1024
+        * added version.go                                          SLOC 1055
 v0.5.0
     2014-05-14
         * split off from xlattice_go/protocol                       SLOC 1050

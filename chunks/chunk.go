@@ -36,6 +36,9 @@ const (
 
 	// 2014-03-11 CHANGE: this is now construed as the maximum size of the
 	// entire packet, including the header and the terminating chunk hash.
+	//MAX_CHUNK_BYTES = 128 * 1024 // 128 KB
+
+	// 2014-10-09 experiment
 	MAX_CHUNK_BYTES = 128 * 1024 // 128 KB
 
 	MAX_DATA_BYTES = MAX_CHUNK_BYTES - (HEADER_BYTES + HASH_BYTES)

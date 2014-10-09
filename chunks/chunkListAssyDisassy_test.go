@@ -81,7 +81,7 @@ func (s *XLSuite) TestChunkListAssyDisassy(c *C) {
 	// (yes this is a test of uDir logic but these are early days ---
 	// XXX uDir.Exist(arg) - arg should be []byte, no string
 	keyStr := hex.EncodeToString(key)
-	found, err = myU.Exists(keyStr)
+	found, err = myU.HexKeyExists(keyStr)
 	c.Assert(err, IsNil)
 	c.Assert(found, Equals, true)
 
@@ -90,7 +90,7 @@ func (s *XLSuite) TestChunkListAssyDisassy(c *C) {
 	now := xu.Timestamp(time.Now().UnixNano())
 
 	// make a reader --------------------------------------
-	pathToData, err := myU.GetPathForKey(keyStr)
+	pathToData, err := myU.GetPathForHexKey(keyStr)
 	c.Assert(err, IsNil)
 	reader, err := os.Open(pathToData) // open for read only
 	c.Assert(err, IsNil)

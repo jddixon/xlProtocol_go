@@ -1,5 +1,11 @@
 xlProtocol_go/TODO
 
+2014-10-09
+    * change docs to reflect increased MAX_CHUNK_BYTES, now 1024*1024   
+    * review code to see whether it can handle large files, those
+        where total length of chunk keys exceeds MAX_CHUNK_BYTES
+
+
 2014-05-14
     * remove aes_cnx/helloAndReply_test.go dependency on
         xlattice_go/node

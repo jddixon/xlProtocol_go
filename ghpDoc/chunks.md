@@ -39,7 +39,7 @@ The **datum** field contains the SHA3-256 (Keccak) content hash of the file of
 which this is a chunk.  This is **not** the content hash of the chunk.
 It is the content hash of the entire file represented by this message.
 
-The header is followed by `ceil(len/16)` bytes of **data**, with zero byte
+The header is followed by `ceil(length/16)` bytes of **data**, with zero byte
 **padding** added as necessary to bring the data length up to a multiple of
 16.  That is, the data is padded with zeroes as required to bring its length to
 the next whole multiple of 16.  If the length of the data in bytes is already

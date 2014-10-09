@@ -1,5 +1,8 @@
 xlattice_go/protocol/chunks/TODO
 
+2014-10-09
+    * as an experiment, MAX_CHUNK_BYTES from 128*1024 to 1024*1024      * DONE
+
 2014-03-25 (-03-09, edited again)
     * write a test chunkListAssyDisassyTest that 
         - creates tmp/ if it doesn't exist                              * DONE
