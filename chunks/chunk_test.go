@@ -4,7 +4,8 @@ package chunks
 
 import (
 	"bytes"
-	"code.google.com/p/go.crypto/sha3"
+	//"code.google.com/p/go.crypto/sha3"
+	"crypto/sha1"
 	"fmt"
 	xr "github.com/jddixon/rnglib_go"
 	xi "github.com/jddixon/xlNodeID_go"
@@ -84,12 +85,25 @@ func (s *XLSuite) TestChunks(c *C) {
 	c.Assert(ch.GetIndex(), Equals, ndx)
 	actualDatum := ch.GetDatum()
 	c.Assert(actualDatum, NotNil)
+	// DEBUG
+	//fmt.Printf("actualDatum: %x\n", actualDatum)
+	//fmt.Printf("datum:       %x\n", datum.Value())
+	// END
 	c.Assert(bytes.Equal(actualDatum, datum.Value()), Equals, true)
 
 	// field checks: data, chunk hash
+	// DEBUG
+	//fmt.Printf("data:       %x\n", data)
+	//fmt.Printf("from chunk: %x\n", ch.GetData())
+	// END
 	c.Assert(bytes.Equal(ch.GetData(), data), Equals, true)
-	d := sha3.NewKeccak256()
+	//d := sha3.NewKeccak256()
+	d := sha1.New()
 	d.Write(ch.packet[0 : len(ch.packet)-HASH_BYTES])
 	hash := d.Sum(nil)
+	// DEBUG
+	//fmt.Printf("TestChunks:\n    hash in chunk %x\n    calculated    %x\n",
+	//	ch.GetChunkHash(), hash)
+	// END
 	c.Assert(bytes.Equal(ch.GetChunkHash(), hash), Equals, true)
 }

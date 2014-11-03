@@ -3,46 +3,14 @@ package chunks
 // xlProtocol_go/chunks/chunk.go
 
 import (
-	"code.google.com/p/go.crypto/sha3"
+	"crypto/sha1"
+	//"code.google.com/p/go.crypto/sha3"
 	"encoding/binary"
 	"fmt"
-	xc "github.com/jddixon/xlCrypto_go"
 	xi "github.com/jddixon/xlNodeID_go"
 )
 
 var _ = fmt.Print
-
-const (
-	MAGIC           = 0
-	MAGIC_BYTES     = 1
-	MAGIC_OFFSET    = 0
-	TYPE            = 0
-	TYPE_BYTES      = 1
-	TYPE_OFFSET     = MAGIC_OFFSET + MAGIC_BYTES
-	RESERVED_OFFSET = TYPE_OFFSET + TYPE_BYTES
-	RESERVED_BYTES  = 6
-	// The length and index are big-endian.
-	LENGTH_OFFSET = RESERVED_OFFSET + RESERVED_BYTES
-	LENGTH_BYTES  = 4
-	INDEX_OFFSET  = LENGTH_OFFSET + LENGTH_BYTES
-	INDEX_BYTES   = 4
-	DATUM_OFFSET  = INDEX_OFFSET + INDEX_BYTES
-	DATUM_BYTES   = 32
-	DATA_OFFSET   = DATUM_OFFSET + DATUM_BYTES
-	HEADER_BYTES  = DATA_OFFSET
-
-	HASH_BYTES = xc.SHA3_LEN
-	WORD_BYTES = 16 // we pad to likely cpu cache size in bytes
-
-	// 2014-03-11 CHANGE: this is now construed as the maximum size of the
-	// entire packet, including the header and the terminating chunk hash.
-	//MAX_CHUNK_BYTES = 128 * 1024 // 128 KB
-
-	// 2014-10-09 experiment
-	MAX_CHUNK_BYTES = 128 * 1024 // 128 KB
-
-	MAX_DATA_BYTES = MAX_CHUNK_BYTES - (HEADER_BYTES + HASH_BYTES)
-)
 
 type Chunk struct {
 	packet []byte
@@ -67,17 +35,20 @@ func NewChunk(datum *xi.NodeID, ndx uint32, data []byte) (
 		adjLen := ((realLen + WORD_BYTES - 1) / WORD_BYTES) * WORD_BYTES
 		paddingBytes := adjLen - realLen
 		packet := make([]byte, DATUM_OFFSET)
+		datumPadding := make([]byte, DATUM_PADDING)
 		ch = &Chunk{packet: packet}
 		ch.setLength(uint32(realLen)) // length of the data part
 		ch.setIndex(ndx)              // index of this chunk in overall message
 		ch.packet = append(ch.packet, msgHash...)
+		ch.packet = append(ch.packet, datumPadding...)
 		ch.packet = append(ch.packet, data...)
 		if paddingBytes > 0 {
 			padding := make([]byte, paddingBytes)
 			ch.packet = append(ch.packet, padding...)
 		}
 		// calculate the SHA3-256 hash of the chunk
-		d := sha3.NewKeccak256()
+		// d := sha3.NewKeccak256()
+		d := sha1.New()
 		d.Write(ch.packet)
 		chunkHash := d.Sum(nil)
 

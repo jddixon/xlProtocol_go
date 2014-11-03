@@ -4,9 +4,10 @@ package chunks
 
 import (
 	"bytes"
-	"code.google.com/p/go.crypto/sha3"
+	//"code.google.com/p/go.crypto/sha3"
 	"crypto/rand"
 	"crypto/rsa"
+	"crypto/sha1"
 	"fmt"
 	xr "github.com/jddixon/rnglib_go"
 	xi "github.com/jddixon/xlNodeID_go"
@@ -25,6 +26,14 @@ func (s *XLSuite) calculateChunkHash(c *C, n uint, datum []byte, data []byte) (
 	// build the header
 	b := make([]byte, DATUM_OFFSET)
 	b = append(b, datum...)
+	datumPadding := make([]byte,DATUM_PADDING)
+	b = append(b, datumPadding...)
+
+	// DEBUG
+	fmt.Printf("after adding datum padding, packet len is %d\n",
+		len(b))
+	// END
+
 	ch := &Chunk{packet: b}
 	var chunkBytes int
 	if chunkCount == 1 {
@@ -56,7 +65,8 @@ func (s *XLSuite) calculateChunkHash(c *C, n uint, datum []byte, data []byte) (
 	//	n, chunkBytes, lenPadding)
 	// END
 
-	d := sha3.NewKeccak256()
+	//d := sha3.NewKeccak256()
+	d := sha1.New()
 	d.Write(ch.packet)
 	chunkHash = d.Sum(nil)
 	// DEBUG
@@ -75,7 +85,7 @@ func (s *XLSuite) calculateChunkHash(c *C, n uint, datum []byte, data []byte) (
 }
 func (s *XLSuite) TestChunkList(c *C) {
 	if VERBOSITY > 0 {
-		fmt.Println("TEST_CHUNK")
+		fmt.Println("TEST_CHUNK_LIST")
 	}
 	rng := xr.MakeSimpleRNG()
 
@@ -84,7 +94,8 @@ func (s *XLSuite) TestChunkList(c *C) {
 	rng.NextBytes(data)
 
 	reader := bytes.NewReader(data)
-	d := sha3.NewKeccak256()
+	//d := sha3.NewKeccak256()
+	d := sha1.New()
 	d.Write(data)
 	datum := d.Sum(nil)
 	nodeID, err := xi.NewNodeID(datum)
@@ -107,6 +118,10 @@ func (s *XLSuite) TestChunkList(c *C) {
 		actual, err := cl.HashItem(i)
 		c.Assert(err, IsNil)
 		expected := s.calculateChunkHash(c, i, datum, data)
+		// DEBUG
+		fmt.Printf("chunk %d\n    actual   %x\n    expected %x\n",
+			i, actual, expected)
+		// END
 		c.Assert(actual, DeepEquals, expected)
 
 		// compare with result of calculation in NewChunk -----------

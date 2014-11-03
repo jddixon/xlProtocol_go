@@ -4,8 +4,9 @@ package chunks
 
 import (
 	"bytes"
-	"code.google.com/p/go.crypto/sha3"
+	//"code.google.com/p/go.crypto/sha3"
 	"crypto/rsa"
+	"crypto/sha1"
 	"fmt"
 	u "github.com/jddixon/xlU_go"
 	xu "github.com/jddixon/xlUtil_go"
@@ -37,7 +38,8 @@ func NewChunkList(sk *rsa.PublicKey, title string, timestamp xu.Timestamp,
 		header *Chunk // SCRATCH
 	)
 	chunkCount := uint32((length + MAX_DATA_BYTES - 1) / MAX_DATA_BYTES)
-	bigD := sha3.NewKeccak256() // used to check datum
+	//bigD := sha3.NewKeccak256() // used to check datum
+	bigD := sha1.New() // used to check datum
 	hashes := make([][]byte, chunkCount)
 	//// DEBUG
 	//fmt.Printf("NewChunkList: file len %d; there will be %d chunk(s)\n",
@@ -64,6 +66,8 @@ func NewChunkList(sk *rsa.PublicKey, title string, timestamp xu.Timestamp,
 			// Use a packet with no data as a scratch pad to build dummy headers
 			hPacket := make([]byte, DATUM_OFFSET)
 			hPacket = append(hPacket, datum...)
+			datumPadding := make([]byte, DATUM_PADDING)
+			hPacket = append(hPacket, datumPadding...)
 			header = &Chunk{packet: hPacket}
 			// default length is 128KB - 80 = MAX_DATA_BYTES
 			header.setLength(MAX_DATA_BYTES)
@@ -100,7 +104,8 @@ func NewChunkList(sk *rsa.PublicKey, title string, timestamp xu.Timestamp,
 			}
 			stillToGo -= int64(count) // ASSUMES NO PARTIAL READ
 
-			d := sha3.NewKeccak256()
+			//d := sha3.NewKeccak256()
+			d := sha1.New()
 			d.Write(header.packet) // <-- header is included
 			bigD.Write(data)
 			if paddingBytes > 0 {

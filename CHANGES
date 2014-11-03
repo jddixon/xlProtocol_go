@@ -1,5 +1,9 @@
 xlProtocol_go/CHANGES
 
+v0.6.0
+    2014-11-02
+        * chunks now uses SHA1 hash rather than 256-bit Keccak      SLOC 1066
+
 v0.5.1
     2014-10-09
         * changes to conform to new xlU.go API

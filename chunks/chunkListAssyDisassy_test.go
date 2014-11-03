@@ -4,9 +4,10 @@ package chunks
 
 import (
 	"bytes"
-	"code.google.com/p/go.crypto/sha3"
+	//"code.google.com/p/go.crypto/sha3"
 	"crypto/rand"
 	"crypto/rsa"
+	"crypto/sha1"
 	"encoding/hex"
 	"fmt"
 	xr "github.com/jddixon/rnglib_go"
@@ -35,8 +36,9 @@ func (s *XLSuite) TestChunkListAssyDisassy(c *C) {
 	data := make([]byte, dataLen)
 	rng.NextBytes(data)
 
-	// calculate datum, the SHA3 hash of the data -------------------
-	d := sha3.NewKeccak256()
+	// calculate datum, the SHA hash of the data --------------------
+	//d := sha3.NewKeccak256()
+	d := sha1.New()
 	d.Write(data)
 	hash := d.Sum(nil)
 	datum, err := xi.NewNodeID(hash)
@@ -141,19 +143,23 @@ func (s *XLSuite) TestChunkListAssyDisassy(c *C) {
 
 		// if this isn't true, we get a panic
 		c.Assert(dataLen < rawLen, Equals, true)
-
-		payload := chunk.GetData() // panics :-)
+		payload := chunk.GetData()
 
 		data2 = append(data2, payload...)
 	}
 	// verify that the content key of the rebuilt file is identical to
 	// that of the original
 
-	d2D := sha3.NewKeccak256()
+	//d2D := sha3.NewKeccak256()
+	d2D := sha1.New()
 	d2D.Write(data2)
 	hash2 := d2D.Sum(nil)
 	datum2, err := xi.NewNodeID(hash2)
 	c.Assert(err, IsNil)
+	// DEBUG
+	//fmt.Printf("datum:  %x\ndatum2: %x\n", datum.Value(), datum2.Value())
+	//fmt.Printf("data: %x\ndata2: %x\n", data, data2)
+	// END
 	c.Assert(bytes.Equal(datum.Value(), datum2.Value()), Equals, true)
 
 	// presumably pure pedantry: verify that the file contents are

@@ -6,7 +6,7 @@ import (
 
 var (
 	BadDatum                    = e.New("bad datum - doesn't match content hash")
-	BadDatumLength              = e.New("bad datum - length must be 32")
+	BadDatumLength              = e.New("bad datum - length must be 20")
 	ChunkTooLong                = e.New("chunk too long")
 	EmptyTitle                  = e.New("empty title parameter")
 	MismatchedPublicPrivateKeys = e.New("public and private keys don't match")
