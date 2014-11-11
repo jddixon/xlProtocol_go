@@ -6,7 +6,6 @@ import (
 	"crypto/aes"
 	"fmt"
 	xr "github.com/jddixon/rnglib_go"
-	xn "github.com/jddixon/xlattice_go/node"
 	. "gopkg.in/check.v1"
 )
 
@@ -15,16 +14,9 @@ func (s *XLSuite) TestHelloAndReply(c *C) {
 		fmt.Println("TEST_HELLO_AND_REPLY")
 	}
 	rng := xr.MakeSimpleRNG()
-	nodeID := s.makeANodeID(c, rng)
 
 	ckPriv := s.makeAnRSAKey(c)
-	skPriv := s.makeAnRSAKey(c)
-
-	node, err := xn.New("foo", nodeID, "", ckPriv, skPriv, nil, nil, nil)
-	c.Assert(err, IsNil)
-	c.Assert(node, Not(IsNil))
-
-	ck := node.GetCommsPublicKey()
+	ck := &ckPriv.PublicKey
 
 	version1 := uint32(rng.Int31n(255 * 255)) // in effect an unsigned short
 

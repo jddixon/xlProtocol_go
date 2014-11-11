@@ -1,6 +1,10 @@
 xlProtocol_go/CHANGES
 
 v0.6.0
+    2014-11-11
+        * corrected package name in tlv16_test.go, aes_cnx
+        * changes reflecting API changesi
+        * document switch to 1 MB MAX_CHUNK_BYTES                   SLOC 1062
     2014-11-02
         * chunks now uses SHA1 hash rather than 256-bit Keccak      SLOC 1066
 

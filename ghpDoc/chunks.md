@@ -23,10 +23,10 @@ In the initial version of Chunks, ***header fields*** are laid out as follows:
 
 In this version (type 0) of Chunks, the first eight bytes are always zero.
 
-The type 0 Chunk **length** field is constrained to 17 bits and stores
+The type 0 Chunk **length** field is constrained to 20 bits and stores
 `N-1`, the length of the chunk less one.   Therefore the
-maximum number of bytes in a chunk is `2^17 = 131072`.
-The upper 15 bits of the length field are reserved and
+maximum number of bytes in a chunk is `2^20 = 1048576`.
+The upper 12 bits of the length field are reserved and
 must be zero.
 
 The length is big-endian, so that the first byte of the length is always

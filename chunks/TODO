@@ -1,7 +1,7 @@
 xlattice_go/protocol/chunks/TODO
 
-2014-11-02
-    * FIX: chunkList_test.go fails
+2014-11-11
+    * FIX: chunkList_test.go apparent intermittent failure
 
 2014-10-09
     * as an experiment, MAX_CHUNK_BYTES from 128*1024 to 1024*1024      * DONE
