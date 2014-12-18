@@ -46,8 +46,7 @@ func NewChunk(datum *xi.NodeID, ndx uint32, data []byte) (
 			padding := make([]byte, paddingBytes)
 			ch.packet = append(ch.packet, padding...)
 		}
-		// calculate the SHA3-256 hash of the chunk
-		// d := sha3.NewKeccak256()
+		// calculate the SHA1 hash of the chunk
 		d := sha1.New()
 		d.Write(ch.packet)
 		chunkHash := d.Sum(nil)

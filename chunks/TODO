@@ -1,5 +1,8 @@
 xlattice_go/protocol/chunks/TODO
 
+2014-12-18
+    * edit ChunkList to support sha256 chunk hash
+
 2014-11-11
     * FIX: chunkList_test.go apparent intermittent failure
 

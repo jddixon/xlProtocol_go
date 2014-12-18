@@ -1,5 +1,11 @@
 xlProtocol_go/TODO
 
+2014-12-17
+    * SHA1_LEN becomes xu.SHA1_BIN_LEN, etc
+    * prefer SHA256 to SHA3
+    * can we use SHA256 for dig sigs?
+    * revise documenation accordingly
+
 2014-11-10
     * fix bug in chunkList_test.go !                                    * DONE
 

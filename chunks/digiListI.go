@@ -6,7 +6,7 @@ import ()
 
 type DigiListI interface {
 
-	// Return the SHA3-256 hash of the Nth item in the DigiList.  Return an
+	// Return the SHA hash of the Nth item in the DigiList.  Return an
 	// error if there is no such item.
 	//
 	// There may be a requirement that this interface be called in order,

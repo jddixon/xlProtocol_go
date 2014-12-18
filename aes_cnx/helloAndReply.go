@@ -10,11 +10,7 @@ import (
 	"crypto/sha1"
 	xr "github.com/jddixon/rnglib_go"
 	xc "github.com/jddixon/xlCrypto_go"
-)
-
-const (
-	SHA1_LEN = 20
-	SHA3_LEN = 32
+	xu "github.com/jddixon/xlUtil_go"
 )
 
 // Create an AES IV and key and an 8-byte salt, then encrypt these and
@@ -31,7 +27,7 @@ func ClientEncodeHello(version1 uint32, ck *rsa.PublicKey) (
 
 	// Generate 16-byte AES IV, 32-byte AES key, and 8-byte salt for the
 	// Hello and another 20 bytes as salt for the OAEP encryp
-	salty := make([]byte, 3*aes.BlockSize+8+SHA1_LEN)
+	salty := make([]byte, 3*aes.BlockSize+8+xu.SHA1_BIN_LEN)
 	rng.NextBytes(salty)
 
 	iv1 = salty[:aes.BlockSize]

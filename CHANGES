@@ -1,5 +1,8 @@
 xlProtocol_go/CHANGES
 
+v0.7.0
+    2014-12-18
+        * cleanup + use xlUtil_go SHA-related constants             SLOC 1060
 v0.6.0
     2014-11-11
         * corrected package name in tlv16_test.go, aes_cnx

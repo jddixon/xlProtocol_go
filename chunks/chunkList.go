@@ -4,7 +4,6 @@ package chunks
 
 import (
 	"bytes"
-	//"code.google.com/p/go.crypto/sha3"
 	"crypto/rsa"
 	"crypto/sha1"
 	"fmt"
@@ -21,7 +20,7 @@ type ChunkList struct {
 	DigiList // contains sk, title, timestamp, digSig
 }
 
-// Create a ChunkList for an io.Reader where the length and SHA3-256
+// Create a ChunkList for an io.Reader where the length and SHA1
 // content key of the document are already known.  If uStore is not nil,
 // each chunk is inserted into uStore.  Chunks are CHUNK_BYTES in size,
 // except that the last chunk may be shorter.  The last chunk is padded
@@ -38,14 +37,8 @@ func NewChunkList(sk *rsa.PublicKey, title string, timestamp xu.Timestamp,
 		header *Chunk // SCRATCH
 	)
 	chunkCount := uint32((length + MAX_DATA_BYTES - 1) / MAX_DATA_BYTES)
-	//bigD := sha3.NewKeccak256() // used to check datum
 	bigD := sha1.New() // used to check datum
 	hashes := make([][]byte, chunkCount)
-	//// DEBUG
-	//fmt.Printf("NewChunkList: file len %d; there will be %d chunk(s)\n",
-	//	length, chunkCount)
-	//fmt.Printf("  number of hashes = %d\n", len(hashes)) // XXX
-	//// END
 
 	if reader == nil {
 		err = NilReader
@@ -128,26 +121,10 @@ func NewChunkList(sk *rsa.PublicKey, title string, timestamp xu.Timestamp,
 					}
 				}
 			}
-			// DEBUG
-			//if i == chunkCount - 1 {
-			//	fmt.Println("DUMP OF LAST CHUNK" )
-			//	for j := 0; j < len(header.packet); j += 16 {
-			//		fmt.Printf("%6d %s\n", j,
-			//			hex.EncodeToString(header.packet[j: j+16]))
-			//	}
-			//	for j := 0; j < len(data); j += 16 {
-			//		fmt.Printf("%6d %s\n", j + 48,
-			//			hex.EncodeToString(data[j: j+16]))
-			//	}
-			//}
-			// END
 		}
 	}
 	if err == nil {
 		contentHash := bigD.Sum(nil)
-		// DEBUG
-		// fmt.Printf("datum2: %s\n", hex.EncodeToString(contentHash))
-		// END
 		if !bytes.Equal(contentHash, datum) {
 			err = BadDatum
 		}
@@ -161,13 +138,10 @@ func NewChunkList(sk *rsa.PublicKey, title string, timestamp xu.Timestamp,
 	return
 }
 
-// Return the SHA3-256 hash of the Nth item in the DigiList.  Return an
+// Return the SHA1 hash of the Nth item in the DigiList.  Return an
 // error if there is no such item.
 func (cl *ChunkList) HashItem(n uint) (hash []byte, err error) {
 
-	// DEBUG
-	// fmt.Printf("HashItem(%d) where size is %d\n", n, cl.Size())
-	// END
 	if n >= cl.Size() {
 		err = NoNthItem
 	} else {

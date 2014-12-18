@@ -27,7 +27,7 @@ func (s *XLSuite) calculateChunkHash(c *C, n uint, datum []byte, data []byte) (
 	// build the header
 	b := make([]byte, DATUM_OFFSET)
 	b = append(b, datum...)
-	datumPadding := make([]byte,DATUM_PADDING)
+	datumPadding := make([]byte, DATUM_PADDING)
 	b = append(b, datumPadding...)
 
 	// DEBUG
