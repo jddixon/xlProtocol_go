@@ -1,5 +1,11 @@
 xlattice_go/protocol/aes_cnx
 
+2014-04-16
+    * drop iv1 from message client sends to server (it's prefixed to    * DONE
+        the encrypted message as plaintext!)                            * DONE
+    * so iv1 dropped from ClientEncodeHello return                      * DONE
+    * similarly drop iv2 from the server's reply to the client          * DONE
+
 2014-02-14
     * merge in anything useful from aes_cnx.go                          * DONE
 

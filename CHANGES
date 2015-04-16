@@ -1,5 +1,8 @@
 xlProtocol_go/CHANGES
 
+v0.8.0
+    2015-04-16
+        * corrected handling of IV in aes_cnx/helloAndReply         SLOC 1058
 v0.7.0
     2014-12-18
         * cleanup + use xlUtil_go SHA-related constants             SLOC 1060

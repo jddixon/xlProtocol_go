@@ -22,21 +22,18 @@ func (s *XLSuite) TestHelloAndReply(c *C) {
 
 	// == HELLO =====================================================
 	// On the client side, create and marshal a hello message containing
-	// AES iv1, key1, salt1 in addition to the client-proposed protocol
-	// version.
+	// AES key1, salt1 in addition to the client-proposed protocol version.
 
-	ciphertext, iv1, key1, salt1, err := ClientEncodeHello(version1, ck)
+	ciphertext, key1, salt1, err := ClientEncodeHello(version1, ck)
 	c.Assert(err, IsNil)
-	c.Assert(len(iv1), Equals, aes.BlockSize)
 	c.Assert(len(key1), Equals, 2*aes.BlockSize)
 	c.Assert(len(salt1), Equals, 8)
 
 	// On the server side: ------------------------------------------
 	// Decrypt the hello using the node's private comms key, unpack.
-	iv1s, key1s, salt1s, version1s, err := ServerDecodeHello(ciphertext, ckPriv)
+	key1s, salt1s, version1s, err := ServerDecodeHello(ciphertext, ckPriv)
 	c.Assert(err, IsNil)
 
-	c.Assert(iv1s, DeepEquals, iv1)
 	c.Assert(key1s, DeepEquals, key1)
 	c.Assert(salt1s, DeepEquals, salt1)
 	c.Assert(version1s, Equals, version1)
@@ -45,19 +42,18 @@ func (s *XLSuite) TestHelloAndReply(c *C) {
 	// On the server side create, marshal a reply containing iv2, key2, salt2,
 	// salt1, version2
 	version2 := version1 // server accepts client proposal
-	iv2, key2, salt2, ciphertext, err := ServerEncodeHelloReply(
-		iv1, key1, salt1, version2)
+	key2, salt2, ciphertext, err := ServerEncodeHelloReply(
+		key1, salt1, version2)
 	c.Assert(err, IsNil)
 
 	// On the client side: ------------------------------------------
 	//     decrypt the reply using engine1b = iv1, key1
 
-	iv2c, key2c, salt2c, salt1c, version2c, err := ClientDecodeHelloReply(
-		ciphertext, iv1, key1)
+	key2c, salt2c, salt1c, version2c, err := ClientDecodeHelloReply(
+		ciphertext, key1)
 
 	c.Assert(err, IsNil)
 
-	c.Assert(iv2c, DeepEquals, iv2)
 	c.Assert(key2c, DeepEquals, key2)
 	c.Assert(salt2c, DeepEquals, salt2)
 	c.Assert(salt1c, DeepEquals, salt1)
