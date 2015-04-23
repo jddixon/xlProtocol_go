@@ -15,7 +15,7 @@ import (
 // Create an AES IV and key and an 8-byte salt, then encrypt these and
 // the proposed protocol version using the server's comms public key.
 func ClientEncodeHello(version1 uint32, ck *rsa.PublicKey) (
-	ciphertext []byte, key1, salt1 []byte, err error) {
+	ciphertext, key1, salt1 []byte, err error) {
 	rng := xr.MakeSystemRNG()
 
 	vBytes := make([]byte, 4)
@@ -24,7 +24,7 @@ func ClientEncodeHello(version1 uint32, ck *rsa.PublicKey) (
 	vBytes[2] = byte(version1 >> 16)
 	vBytes[3] = byte(version1 >> 24)
 
-	// Generate 32-byte AES key, and 8-byte salt for the Hello 
+	// Generate 32-byte AES key, and 8-byte salt for the Hello
 	salty := make([]byte, 2*aes.BlockSize+8+20)
 	rng.NextBytes(salty)
 
@@ -34,7 +34,7 @@ func ClientEncodeHello(version1 uint32, ck *rsa.PublicKey) (
 	oaepSalt := bytes.NewBuffer(oaep1)
 
 	sha := sha1.New()
-	data := salty[:2*aes.BlockSize+8]	// contains key1,salt1
+	data := salty[:2*aes.BlockSize+8] // contains key1,salt1
 	data = append(data, vBytes...)    // ... plus preferred protocol version
 
 	ciphertext, err = rsa.EncryptOAEP(sha, oaepSalt, ck, data, nil)
@@ -43,13 +43,13 @@ func ClientEncodeHello(version1 uint32, ck *rsa.PublicKey) (
 
 // Decrypt the Hello using the node's private comms key, and decode its
 // contents.
-func ServerDecodeHello(ciphertext[]byte, ckPriv *rsa.PrivateKey) (
+func ServerDecodeHello(ciphertext []byte, ckPriv *rsa.PrivateKey) (
 	key1s, salt1s []byte, version1s uint32, err error) {
 
 	sha := sha1.New()
 	data, err := rsa.DecryptOAEP(sha, nil, ckPriv, ciphertext, nil)
 	if err == nil {
-		key1s = data[: 2*aes.BlockSize]
+		key1s = data[:2*aes.BlockSize]
 		salt1s = data[2*aes.BlockSize : 2*aes.BlockSize+8]
 		vBytes := data[2*aes.BlockSize+8:]
 		version1s = uint32(vBytes[0]) |
@@ -60,8 +60,8 @@ func ServerDecodeHello(ciphertext[]byte, ckPriv *rsa.PrivateKey) (
 	return
 }
 
-// Create and marshal using AES iv and key1 a reply prefixed by iv2 
-// and containing key2, salt2, salt1 and version 2, the server-decreed 
+// Create and marshal using AES iv and key1 a reply prefixed by iv2
+// and containing key2, salt2, salt1 and version 2, the server-decreed
 // protocol version number.
 func ServerEncodeHelloReply(key1, salt1 []byte, version2 uint32) (
 	key2, salt2, prefixedCiphertext []byte, err error) {
@@ -77,13 +77,13 @@ func ServerEncodeHelloReply(key1, salt1 []byte, version2 uint32) (
 	rng := xr.MakeSystemRNG()
 	data := make([]byte, 3*aes.BlockSize+8)
 
-	// make some random data 
+	// make some random data
 	rng.NextBytes(data)
 	iv := data[:aes.BlockSize]
 	key2 = data[aes.BlockSize : 3*aes.BlockSize]
 	salt2 = data[3*aes.BlockSize : 3*aes.BlockSize+8]
 
-	payload := data[aes.BlockSize:3*aes.BlockSize + 8]	// so key2 + salt2
+	payload := data[aes.BlockSize : 3*aes.BlockSize+8] // so key2 + salt2
 	// add the original salt, and then vBytes, representing version2
 	payload = append(payload, salt1...)
 	payload = append(payload, vBytes...)
@@ -104,7 +104,8 @@ func ServerEncodeHelloReply(key1, salt1 []byte, version2 uint32) (
 		nBlocks := (msgLen + aes.BlockSize - 1) / aes.BlockSize
 		ciphertext := make([]byte, nBlocks*aes.BlockSize)
 		aesEncrypter1a.CryptBlocks(ciphertext, padded) // dest <- src
-		prefixedCiphertext = iv	// just to make things clear ...
+		// XXX FIX ME: This should be a __copy__ of iv
+		prefixedCiphertext = iv // just to make things clear ...
 		prefixedCiphertext = append(prefixedCiphertext, ciphertext...)
 	}
 	return
@@ -128,7 +129,7 @@ func ClientDecodeHelloReply(prefixedCiphertext, key1 []byte) (
 		unpaddedReply, err = xc.StripPKCS7Padding(plaintext, aes.BlockSize)
 	}
 	if err == nil {
-		key2 = unpaddedReply[ : 2*aes.BlockSize]
+		key2 = unpaddedReply[:2*aes.BlockSize]
 		salt2 = unpaddedReply[2*aes.BlockSize : 2*aes.BlockSize+8]
 		salt1 = unpaddedReply[2*aes.BlockSize+8 : 2*aes.BlockSize+16]
 

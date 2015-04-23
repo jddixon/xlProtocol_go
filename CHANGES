@@ -1,5 +1,8 @@
 xlProtocol_go/CHANGES
 
+v0.8.1
+    2015-04-23
+        * add aesSession.go and test (still a little rough)
 v0.8.0
     2015-04-16
         * corrected handling of IV in aes_cnx/helloAndReply         SLOC 1058

@@ -3,6 +3,6 @@ package protocol
 // xlProtocol_go/version.go
 
 const (
-	VERSION      = "0.7.0"
-	VERSION_DATE = "2014-12-18"
+	VERSION      = "0.8.1"
+	VERSION_DATE = "2015-04-23"
 )
