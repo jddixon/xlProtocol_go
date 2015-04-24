@@ -2,16 +2,6 @@ package aes_cnx
 
 // xlProtocol/aes_cnx/aesSession.go
 
-// Assume that a generator for this code is parameterized by
-//	package name	- defaults to using local directory name
-//  protocol name	- defaults to using whatever precedes "Msg" in *.proto
-//  MSG_BUF_LEN		- defaults to 16 (K assumed)
-//  file name		- defaults to protocol name + "_aes_cnx.go"
-//  struct name		- defaults to protocol name + "AesSession"
-//
-// Generator is tested by generating the text for xlReg_go/reg
-// and then comparing it to this file, with this comment block dropped.
-
 import (
 	"crypto/aes"
 	"crypto/cipher"
@@ -26,11 +16,17 @@ const (
 
 type AesSession struct {
 	State      int
-	engine     cipher.Block
-	key1, key2 []byte // key1 is uhm maybe
-	rng        *xr.PRNG
+	Engine     cipher.Block
+	Key1, Key2 []byte // Key1 is uhm maybe
+	RNG        *xr.PRNG
 }
 
+// An AesSession establishes one side of a two-sided relationship.  Encryption
+// and decryption share the same key (although per-direction keys could be
+// supported in a slightly different implementation).  If a random number
+// generator (RNG) is not supplied, it uses a secure (and expensive) system 
+// RNG.  If no key is supplied it creates a random 256-bit AES key.
+//
 func NewAesSession(key []byte, rng *xr.PRNG) (session *AesSession, err error) {
 	if rng == nil {
 		rng = xr.MakeSystemRNG()
@@ -41,46 +37,50 @@ func NewAesSession(key []byte, rng *xr.PRNG) (session *AesSession, err error) {
 	engine, err := aes.NewCipher(key)
 	if err == nil {
 		session = &AesSession{
-			engine: engine,
-			key2:   key,
-			rng:    rng,
+			Engine: engine,
+			Key2:   key,
+			RNG:    rng,
 		}
 	}
 	return session, err
 }
 
-// IV is currently being returned for debugging; this should stop.
+// IV is currently being returned for debugging; this should stop as it
+// is prefixed to the ciphertext returned and easily extracted.
 //
-// XXX RESPEC SO THAT THE PADDING IS DONE HERE
-func (as *AesSession) encryptMsg(paddedMsg []byte) (
-	prefixedCiphertext, iv []byte) {
+func (as *AesSession) encryptMsg(msg []byte) (
+	prefixedCiphertext, iv []byte, err error) {
 
-	// chooose an IV to set up encrypter (later prefix to the padded msg)
-	iv = make([]byte, aes.BlockSize)
-	as.rng.NextBytes(iv)
-
-	encrypter := cipher.NewCBCEncrypter(as.engine, iv)
-	ciphertext := make([]byte, len(paddedMsg))
-	encrypter.CryptBlocks(ciphertext, paddedMsg) // dest <- src
-
-	prefixedCiphertext = make([]byte, len(iv))
-	copy(prefixedCiphertext, iv) // dest <- src
-	prefixedCiphertext = append(prefixedCiphertext, ciphertext...)
-
+	paddedMsg, err := xc.AddPKCS7Padding(msg, aes.BlockSize)
+	if err == nil {
+    	// chooose an IV to set up encrypter (later prefix to the padded msg)
+    	iv = make([]byte, aes.BlockSize)
+    	as.RNG.NextBytes(iv)
+    
+    	encrypter := cipher.NewCBCEncrypter(as.Engine, iv)
+    	ciphertext := make([]byte, len(paddedMsg))
+    	encrypter.CryptBlocks(ciphertext, paddedMsg) // dest <- src
+    
+    	prefixedCiphertext = make([]byte, len(iv))
+    	copy(prefixedCiphertext, iv) // dest <- src
+    	prefixedCiphertext = append(prefixedCiphertext, ciphertext...)
+    }
 	return
 }
 
-// IV is currently being returned for debugging; this should stop.
+// IV is currently being returned for debugging; this should stop as 
+// it is part of prefixedData supplied by the caller.
 //
-// XXX SIMPLIFY NAMES OF INTERNAL VARIABLES
-func (as *AesSession) decryptCiphertext(abCiphertext []byte) (
+// prefixedData consists of the iv prefixed to the ciphertext.
+//
+func (as *AesSession) decryptCiphertext(prefixedData []byte) (
 	unpaddedMsg, iv []byte, err error) {
 
-	// abCiphertext is prefixed with the (plaintext) IV
-	iv = abCiphertext[0:aes.BlockSize]
-	ciphertext := abCiphertext[aes.BlockSize:]
+	// prefixedData is prefixed with the (plaintext) IV
+	iv = prefixedData[0:aes.BlockSize]
+	ciphertext := prefixedData[aes.BlockSize:]
 	paddedLen := len(ciphertext)
-	decrypter := cipher.NewCBCDecrypter(as.engine, iv)
+	decrypter := cipher.NewCBCDecrypter(as.Engine, iv)
 	plaintext := make([]byte, paddedLen)
 	decrypter.CryptBlocks(plaintext, ciphertext) // dest <- src
 	unpaddedMsg, err = xc.StripPKCS7Padding(plaintext, aes.BlockSize)

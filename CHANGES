@@ -1,5 +1,9 @@
 xlProtocol_go/CHANGES
 
+v0.8.2
+    2015-04-24
+        * WORK IN PROGRESS
+        * aesSession.go and test cleaned up
 v0.8.1
     2015-04-23
         * add aesSession.go and test (still a little rough)
