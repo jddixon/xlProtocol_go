@@ -59,11 +59,11 @@ func (s *XLSuite) doTestAesSession(c *C, rng *xr.PRNG) {
 		msg, msgSize := s.MakeAMsg(c, rng)
 
 		// encrypt it, yielding abCiphertext, which is prefixed with the IV
-		abCiphertext, ivA, err := hAOut.encryptMsg(msg)
+		abCiphertext, ivA, err := hAOut.Encrypt(msg)
 		c.Assert(err, IsNil)
 
 		//   B decrypts msg -----------------------------------------
-		unpaddedMsg, ivAb, err := hBIn.decryptCiphertext(abCiphertext)
+		unpaddedMsg, ivAb, err := hBIn.Decrypt(abCiphertext)
 		c.Assert(err, IsNil)
 		c.Assert(ivAb, DeepEquals, ivA)
 
@@ -74,11 +74,11 @@ func (s *XLSuite) doTestAesSession(c *C, rng *xr.PRNG) {
 		reply, replySize := s.MakeAMsg(c, rng)
 
 		// encrypt it, yielding baCiphertext, which is prefixed with the IV
-		baCiphertext, ivB, err := hBOut.encryptMsg(reply)
+		baCiphertext, ivB, err := hBOut.Encrypt(reply)
 		c.Assert(err, IsNil)
 
 		//   A decrypts reply -----------------------------------------
-		unpaddedReply, ivBb, err := hAIn.decryptCiphertext(baCiphertext)
+		unpaddedReply, ivBb, err := hAIn.Decrypt(baCiphertext)
 		c.Assert(err, IsNil)
 		c.Assert(ivBb, DeepEquals, ivB)
 
@@ -93,7 +93,7 @@ func (s *XLSuite) TestAesSession(c *C) {
 	}
 	rng := xr.MakeSimpleRNG()
 
-	K := 4 // NOTE 
+	K := 4 // NOTE
 	for k := 0; k < K; k++ {
 		s.doTestAesSession(c, rng)
 	}

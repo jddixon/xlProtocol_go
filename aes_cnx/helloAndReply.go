@@ -14,7 +14,7 @@ import (
 
 // Create an AES IV and key and an 8-byte salt, then encrypt these and
 // the proposed protocol version using the server's comms public key.
-func ClientEncodeHello(version1 uint32, ck *rsa.PublicKey) (
+func ClientEncryptHello(version1 uint32, ck *rsa.PublicKey) (
 	ciphertext, key1, salt1 []byte, err error) {
 	rng := xr.MakeSystemRNG()
 
@@ -43,7 +43,7 @@ func ClientEncodeHello(version1 uint32, ck *rsa.PublicKey) (
 
 // Decrypt the Hello using the node's private comms key, and decode its
 // contents.
-func ServerDecodeHello(ciphertext []byte, ckPriv *rsa.PrivateKey) (
+func ServerDecryptHello(ciphertext []byte, ckPriv *rsa.PrivateKey) (
 	key1s, salt1s []byte, version1s uint32, err error) {
 
 	sha := sha1.New()
@@ -63,7 +63,7 @@ func ServerDecodeHello(ciphertext []byte, ckPriv *rsa.PrivateKey) (
 // Create and marshal using AES iv and key1 a reply prefixed by iv2
 // and containing key2, salt2, salt1 and version 2, the server-decreed
 // protocol version number.
-func ServerEncodeHelloReply(key1, salt1 []byte, version2 uint32) (
+func ServerEncryptHelloReply(key1, salt1 []byte, version2 uint32) (
 	key2, salt2, prefixedCiphertext []byte, err error) {
 
 	var engine1a cipher.Block
@@ -114,7 +114,7 @@ func ServerEncodeHelloReply(key1, salt1 []byte, version2 uint32) (
 // Decrypt the reply using AES key1, then decode from the reply
 // key2, an 8-byte salt2, and the original salt1.
 
-func ClientDecodeHelloReply(prefixedCiphertext, key1 []byte) (
+func ClientDecryptHelloReply(prefixedCiphertext, key1 []byte) (
 	key2, salt2, salt1 []byte, version2 uint32, err error) {
 
 	var unpaddedReply []byte

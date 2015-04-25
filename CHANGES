@@ -1,9 +1,13 @@
 xlProtocol_go/CHANGES
 
+v0.8.3
+    2015-04-25
+        * renamed AesSession functions to Encrypt, Decrypt          SLOC 1178
+        * similary renamed Encode/Decode in helloAndReply to 
+            Encrypt/Decrypt                                         SLOC 1178
 v0.8.2
     2015-04-24
-        * WORK IN PROGRESS
-        * aesSession.go and test cleaned up
+        * aesSession.go and test cleaned up                         SLOC 1178
 v0.8.1
     2015-04-23
         * add aesSession.go and test (still a little rough)

@@ -24,7 +24,7 @@ type AesSession struct {
 // An AesSession establishes one side of a two-sided relationship.  Encryption
 // and decryption share the same key (although per-direction keys could be
 // supported in a slightly different implementation).  If a random number
-// generator (RNG) is not supplied, it uses a secure (and expensive) system 
+// generator (RNG) is not supplied, it uses a secure (and expensive) system
 // RNG.  If no key is supplied it creates a random 256-bit AES key.
 //
 func NewAesSession(key []byte, rng *xr.PRNG) (session *AesSession, err error) {
@@ -48,32 +48,32 @@ func NewAesSession(key []byte, rng *xr.PRNG) (session *AesSession, err error) {
 // IV is currently being returned for debugging; this should stop as it
 // is prefixed to the ciphertext returned and easily extracted.
 //
-func (as *AesSession) encryptMsg(msg []byte) (
+func (as *AesSession) Encrypt(msg []byte) (
 	prefixedCiphertext, iv []byte, err error) {
 
 	paddedMsg, err := xc.AddPKCS7Padding(msg, aes.BlockSize)
 	if err == nil {
-    	// chooose an IV to set up encrypter (later prefix to the padded msg)
-    	iv = make([]byte, aes.BlockSize)
-    	as.RNG.NextBytes(iv)
-    
-    	encrypter := cipher.NewCBCEncrypter(as.Engine, iv)
-    	ciphertext := make([]byte, len(paddedMsg))
-    	encrypter.CryptBlocks(ciphertext, paddedMsg) // dest <- src
-    
-    	prefixedCiphertext = make([]byte, len(iv))
-    	copy(prefixedCiphertext, iv) // dest <- src
-    	prefixedCiphertext = append(prefixedCiphertext, ciphertext...)
-    }
+		// chooose an IV to set up encrypter (later prefix to the padded msg)
+		iv = make([]byte, aes.BlockSize)
+		as.RNG.NextBytes(iv)
+
+		encrypter := cipher.NewCBCEncrypter(as.Engine, iv)
+		ciphertext := make([]byte, len(paddedMsg))
+		encrypter.CryptBlocks(ciphertext, paddedMsg) // dest <- src
+
+		prefixedCiphertext = make([]byte, len(iv))
+		copy(prefixedCiphertext, iv) // dest <- src
+		prefixedCiphertext = append(prefixedCiphertext, ciphertext...)
+	}
 	return
 }
 
-// IV is currently being returned for debugging; this should stop as 
+// IV is currently being returned for debugging; this should stop as
 // it is part of prefixedData supplied by the caller.
 //
 // prefixedData consists of the iv prefixed to the ciphertext.
 //
-func (as *AesSession) decryptCiphertext(prefixedData []byte) (
+func (as *AesSession) Decrypt(prefixedData []byte) (
 	unpaddedMsg, iv []byte, err error) {
 
 	// prefixedData is prefixed with the (plaintext) IV
