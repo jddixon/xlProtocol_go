@@ -1,10 +1,17 @@
 xlattice_go/protocol/aes_cnx
 
-2014-04-24
+2015-04-25
+    * drop Key1 from AesSession data structure                          * DONE
+    * rename Key2 Key                                                   * DONE
+    * IV should not be returned by Encrypt or Decrypt                   * DONE
+    * helloAndReply functions should return pointer to AesSession       * DONE
+
+2015-04-24
     * simplify life, minimize confusion: change code as necessary so    * DONE
         that function names etc use Encrypt/Decrypt, allowing           * DONE
         Encode/Decode to be used for name non-crypto functionality,     * DONE
         such as serializing/deserialzing protobuf messages              * DONE
+
     * then rework helloAndReply so that the client and server first
         create a one-shot AES half-circuit to convery Key1 from server
         to client and then a pair of half-circuits based on Key2 for
@@ -20,7 +27,7 @@ xlattice_go/protocol/aes_cnx
         - then the two exchange random messages for a few iterations
   
 
-2014-04-16
+2015-04-16
     * drop iv1 from message client sends to server (it's prefixed to    * DONE
         the encrypted message as plaintext!)                            * DONE
     * so iv1 dropped from ClientEncodeHello return                      * DONE

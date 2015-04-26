@@ -59,12 +59,14 @@ func (s *XLSuite) doTestAesSession(c *C, rng *xr.PRNG) {
 		msg, msgSize := s.MakeAMsg(c, rng)
 
 		// encrypt it, yielding abCiphertext, which is prefixed with the IV
-		abCiphertext, ivA, err := hAOut.Encrypt(msg)
+		abCiphertext, err := hAOut.Encrypt(msg)
 		c.Assert(err, IsNil)
+		ivA := abCiphertext[0:aes.BlockSize]
 
 		//   B decrypts msg -----------------------------------------
-		unpaddedMsg, ivAb, err := hBIn.Decrypt(abCiphertext)
+		unpaddedMsg, err := hBIn.Decrypt(abCiphertext)
 		c.Assert(err, IsNil)
+		ivAb := abCiphertext[0:aes.BlockSize]
 		c.Assert(ivAb, DeepEquals, ivA)
 
 		c.Assert(len(unpaddedMsg), Equals, msgSize)
@@ -74,12 +76,14 @@ func (s *XLSuite) doTestAesSession(c *C, rng *xr.PRNG) {
 		reply, replySize := s.MakeAMsg(c, rng)
 
 		// encrypt it, yielding baCiphertext, which is prefixed with the IV
-		baCiphertext, ivB, err := hBOut.Encrypt(reply)
+		baCiphertext, err := hBOut.Encrypt(reply)
 		c.Assert(err, IsNil)
+		ivB := baCiphertext[0:aes.BlockSize]
 
 		//   A decrypts reply -----------------------------------------
-		unpaddedReply, ivBb, err := hAIn.Decrypt(baCiphertext)
+		unpaddedReply, err := hAIn.Decrypt(baCiphertext)
 		c.Assert(err, IsNil)
+		ivBb := baCiphertext[0:aes.BlockSize]
 		c.Assert(ivBb, DeepEquals, ivB)
 
 		c.Assert(len(unpaddedReply), Equals, replySize)

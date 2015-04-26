@@ -15,10 +15,10 @@ const (
 )
 
 type AesSession struct {
-	State      int
-	Engine     cipher.Block
-	Key1, Key2 []byte // Key1 is uhm maybe
-	RNG        *xr.PRNG
+	State  int
+	Engine cipher.Block
+	Key    []byte
+	RNG    *xr.PRNG
 }
 
 // An AesSession establishes one side of a two-sided relationship.  Encryption
@@ -38,23 +38,22 @@ func NewAesSession(key []byte, rng *xr.PRNG) (session *AesSession, err error) {
 	if err == nil {
 		session = &AesSession{
 			Engine: engine,
-			Key2:   key,
+			Key:    key,
 			RNG:    rng,
 		}
 	}
 	return session, err
 }
 
-// IV is currently being returned for debugging; this should stop as it
-// is prefixed to the ciphertext returned and easily extracted.
+// IV is prefixed to the ciphertext returned and easily extracted.
 //
 func (as *AesSession) Encrypt(msg []byte) (
-	prefixedCiphertext, iv []byte, err error) {
+	prefixedCiphertext []byte, err error) {
 
 	paddedMsg, err := xc.AddPKCS7Padding(msg, aes.BlockSize)
 	if err == nil {
 		// chooose an IV to set up encrypter (later prefix to the padded msg)
-		iv = make([]byte, aes.BlockSize)
+		iv := make([]byte, aes.BlockSize)
 		as.RNG.NextBytes(iv)
 
 		encrypter := cipher.NewCBCEncrypter(as.Engine, iv)
@@ -68,16 +67,13 @@ func (as *AesSession) Encrypt(msg []byte) (
 	return
 }
 
-// IV is currently being returned for debugging; this should stop as
-// it is part of prefixedData supplied by the caller.
-//
 // prefixedData consists of the iv prefixed to the ciphertext.
 //
 func (as *AesSession) Decrypt(prefixedData []byte) (
-	unpaddedMsg, iv []byte, err error) {
+	unpaddedMsg []byte, err error) {
 
 	// prefixedData is prefixed with the (plaintext) IV
-	iv = prefixedData[0:aes.BlockSize]
+	iv := prefixedData[0:aes.BlockSize]
 	ciphertext := prefixedData[aes.BlockSize:]
 	paddedLen := len(ciphertext)
 	decrypter := cipher.NewCBCDecrypter(as.Engine, iv)
