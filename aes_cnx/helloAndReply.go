@@ -5,20 +5,19 @@ package aes_cnx
 import (
 	"bytes"
 	"crypto/aes"
-	"crypto/cipher"
 	"crypto/rsa"
 	"crypto/sha1"
+	"fmt"
 	xr "github.com/jddixon/rnglib_go"
-	xc "github.com/jddixon/xlCrypto_go"
 )
 
-// XXX SHOULDN'T RETURN KEY1 (IT's IN cOneShot)
+var _ = fmt.Printf
 
 // Create an AES IV and key and an 8-byte salt, then encrypt these and
 // the proposed protocol version using the server's comms public key.
 func ClientEncryptHello(version1 uint32, ck *rsa.PublicKey, rng *xr.PRNG) (
-	ciphertext, key1, salt1 []byte, cOneShot *AesSession, err error) {
-	
+	cOneShot *AesSession, ciphertext []byte, err error) {
+
 	if rng == nil {
 		rng = xr.MakeSystemRNG()
 	}
@@ -32,8 +31,8 @@ func ClientEncryptHello(version1 uint32, ck *rsa.PublicKey, rng *xr.PRNG) (
 	salty := make([]byte, 2*aes.BlockSize+8+20)
 	rng.NextBytes(salty)
 
-	key1 = salty[:2*aes.BlockSize]
-	salt1 = salty[2*aes.BlockSize : 2*aes.BlockSize+8]
+	key1 := salty[:2*aes.BlockSize]
+	// salt1 := salty[2*aes.BlockSize : 2*aes.BlockSize+8]
 	oaep1 := salty[2*aes.BlockSize+8:]
 	oaepSalt := bytes.NewBuffer(oaep1)
 
@@ -51,16 +50,25 @@ func ClientEncryptHello(version1 uint32, ck *rsa.PublicKey, rng *xr.PRNG) (
 // Decrypt the Hello using the node's private comms key, and decode its
 // contents.
 func ServerDecryptHello(ciphertext []byte, ckPriv *rsa.PrivateKey, rng *xr.PRNG) (
-	key1s, salt1s []byte, version1s uint32, sOneShot *AesSession, err error) {
-
+	sOneShot *AesSession, version1s uint32, err error) {
 	if rng == nil {
 		rng = xr.MakeSystemRNG()
 	}
 	sha := sha1.New()
 	data, err := rsa.DecryptOAEP(sha, nil, ckPriv, ciphertext, nil)
+	// DEBUG
 	if err == nil {
-		key1s = data[:2*aes.BlockSize]
-		salt1s = data[2*aes.BlockSize : 2*aes.BlockSize+8]
+		expectedLen := 2*aes.BlockSize + 12
+		if len(data) != expectedLen {
+			fmt.Printf("expected OAEP packet len %d, actual %d bytes\n",
+				expectedLen, len(data))
+			err = WrongOAEPSize // XXX BAD NAME
+		}
+	}
+	// END
+	if err == nil {
+		key1s := data[:2*aes.BlockSize]
+		// salt1s = data[2*aes.BlockSize : 2*aes.BlockSize+8]
 		vBytes := data[2*aes.BlockSize+8:]
 		version1s = uint32(vBytes[0]) |
 			uint32(vBytes[1])<<8 |
@@ -71,20 +79,13 @@ func ServerDecryptHello(ciphertext []byte, ckPriv *rsa.PrivateKey, rng *xr.PRNG)
 	return
 }
 
-// XXX sOneShot SHOULD BE PARAMETER; DOESN'T NEED key1 PARAM; 
-// CAN USE sOneShot Key1 and RNG; SHOULD DO ENCRYPTION USING sOneShot
-
-// Create and marshal using AES iv and key1 a reply prefixed by iv2
-// and containing key2, salt2, salt1 and version 2, the server-decreed
+// Create and marshal using AES key1 a reply prefixed by iv2
+// and containing key2, salt2, and version 2, the server-decreed
 // protocol version number.
-func ServerEncryptHelloReply(sOneShot *AesSession, key1, salt1 []byte, 
-	version2 uint32, rng *xr.PRNG) (
-	key2, salt2, prefixedCiphertext []byte, sSession *AesSession, err error) {
+func ServerEncryptHelloReply(sOneShot *AesSession, version2 uint32) (
+	sSession *AesSession, pCiphertext []byte, err error) {
 
-	if rng == nil {
-		rng = xr.MakeSystemRNG()
-	}
-	//var engine1a cipher.Block
+	rng := sOneShot.RNG
 
 	vBytes := make([]byte, 4)
 	vBytes[0] = byte(version2)
@@ -92,87 +93,43 @@ func ServerEncryptHelloReply(sOneShot *AesSession, key1, salt1 []byte,
 	vBytes[2] = byte(version2 >> 16)
 	vBytes[3] = byte(version2 >> 24)
 
-	data := make([]byte, 2*aes.BlockSize+8)	
+	data := make([]byte, 2*aes.BlockSize+8)
 
 	// make some random data
 	rng.NextBytes(data)
-	key2 = data[0: 2*aes.BlockSize]
-	salt2 = data[2*aes.BlockSize : 2*aes.BlockSize+8]
+	key2 := data[0 : 2*aes.BlockSize]
+	// salt2 := data[2*aes.BlockSize : 2*aes.BlockSize+8]
 
 	payload := data[0 : 2*aes.BlockSize+8] // so key2 + salt2
-	// add the original salt, and then vBytes, representing version2
-	payload = append(payload, salt1...)
+	// add vBytes, representing version2
 	payload = append(payload, vBytes...)
+	pCiphertext, err = sOneShot.Encrypt(payload)
 
-	prefixedCiphertext, err = sOneShot.Encrypt(payload)
-
-	//// XXX DO THE FOLLOWING WITH sOneShot: //////////////////////////
-
-	//// We need padding because the message is not an integer multiple
-	//// of the block size.
-	//padded, err := xc.AddPKCS7Padding(payload, aes.BlockSize)
-	//if err == nil {
-	//	// encrypt the payload using engine1a = iv, key1
-	//	engine1a, err = aes.NewCipher(key1) // on server
-	//}
-	//if err == nil {
-	//	aesEncrypter1a := cipher.NewCBCEncrypter(engine1a, iv)
-
-	//	// we require that the message size be a multiple of the block size
-	//	// XXXX IT's an internal error if it isn't.
-	//	msgLen := len(padded)
-	//	nBlocks := (msgLen + aes.BlockSize - 1) / aes.BlockSize
-	//	ciphertext := make([]byte, nBlocks*aes.BlockSize)
-	//	aesEncrypter1a.CryptBlocks(ciphertext, padded) // dest <- src
-	//	// XXX FIX ME: This should be a __copy__ of iv
-	//	prefixedCiphertext = iv // just to make things clear ...
-	//	prefixedCiphertext = append(prefixedCiphertext, ciphertext...)
-	//}
-	//// END STUFF DONE BY sOneShot ///////////////////////////////////
 	if err == nil {
 		sSession, err = NewAesSession(key2, rng)
 	}
 	return
 }
 
-// XXX cOneShot SHOULD BE PARAMETER; DOESN'T NEED key1 PARAM; 
-// CAN USE sOneShot Key1 and RNG
-
-// Decrypt the reply using AES key1, then decode from the reply
-// key2, an 8-byte salt2, and the original salt1.
+// Decrypt the reply using AES key1, then decode from the reply key2.
 //
-func ClientDecryptHelloReply(cOneShot *AesSession, prefixedCiphertext, 
-	key1 []byte, rng *xr.PRNG) (
-	key2, salt2, salt1 []byte, version2 uint32, cSession *AesSession, err error) {
+func ClientDecryptHelloReply(cOneShot *AesSession, pCiphertext []byte) (
+	cSession *AesSession, version2 uint32, err error) {
 
-	if rng == nil {
-		rng = xr.MakeSystemRNG()
-	}
-	var unpaddedReply []byte
+	var key2 []byte
+	rng := cOneShot.RNG
+	unpaddedReply, err := cOneShot.Decrypt(pCiphertext)
 
-	// XXX DO THIS USING cOneShot: //////////////////////////////////
-
-	engine1b, err := aes.NewCipher(key1) // on client
-	if err == nil {
-		iv := prefixedCiphertext[:aes.BlockSize]
-		ciphertext := prefixedCiphertext[aes.BlockSize:]
-		aesDecrypter1b := cipher.NewCBCDecrypter(engine1b, iv)
-		plaintext := make([]byte, len(ciphertext))
-		aesDecrypter1b.CryptBlocks(plaintext, ciphertext) // dest <- src
-		unpaddedReply, err = xc.StripPKCS7Padding(plaintext, aes.BlockSize)
-	}
 	if err == nil {
 		key2 = unpaddedReply[:2*aes.BlockSize]
-		salt2 = unpaddedReply[2*aes.BlockSize : 2*aes.BlockSize+8]
-		salt1 = unpaddedReply[2*aes.BlockSize+8 : 2*aes.BlockSize+16]
+		// salt2 := unpaddedReply[2*aes.BlockSize : 2*aes.BlockSize+8]
 
-		vBytes2 := unpaddedReply[2*aes.BlockSize+16 : 2*aes.BlockSize+20]
+		vBytes2 := unpaddedReply[2*aes.BlockSize+8 : 2*aes.BlockSize+12]
 		version2 = uint32(vBytes2[0]) |
 			(uint32(vBytes2[1]) << 8) |
 			(uint32(vBytes2[2]) << 16) |
 			(uint32(vBytes2[3]) << 24)
-	} 
-	// END STUFF DONE BY cOneShot ///////////////////////////////////
+	}
 
 	if err == nil {
 		cSession, err = NewAesSession(key2, rng)

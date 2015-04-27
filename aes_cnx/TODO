@@ -12,10 +12,10 @@ xlattice_go/protocol/aes_cnx
         Encode/Decode to be used for name non-crypto functionality,     * DONE
         such as serializing/deserialzing protobuf messages              * DONE
 
-    * then rework helloAndReply so that the client and server first
-        create a one-shot AES half-circuit to convery Key1 from server
-        to client and then a pair of half-circuits based on Key2 for
-        further comms; these half circuits are created using 
+    * then rework helloAndReply so that the client and server first     * DONE
+        create a one-shot AES half-circuit to convery Key1 from server  * DONE
+        to client and then a pair of half-circuits based on Key2 for    * DONE
+        further comms; these half circuits are created using            * DONE
         NewAesSession()
     * we then need a joint test of both helloAndReply and AesSession.
         - A (client) uses helloAndReply OAEP to pass AES Key1 to B,
