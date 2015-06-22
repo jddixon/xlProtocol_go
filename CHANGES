@@ -1,5 +1,8 @@
 xlProtocol_go/CHANGES
 
+v0.8.6
+    2015-06-22
+        * update .gitignore, TODO; step version                     SLOC 1175
 v0.8.5
     2015-04-27
         * helloAndReply now based on AesSessions                    SLOC 1175
