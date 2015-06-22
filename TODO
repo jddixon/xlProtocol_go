@@ -1,5 +1,16 @@
 xlProtocol_go/TODO
 
+2015-06-04
+    * needs some thought: if the padding is PKCS7, it is never zero
+        bytes in length
+    * Keccak not currently supported
+    * chunk hash could follow the header
+    * the spec limits chunks to 1 MB
+
+2015-04-27
+    * WrongOAEPSize needs a better name -- it would be the decrypted
+        data which has the wrong size
+
 2014-12-17
     * SHA1_LEN becomes xu.SHA1_BIN_LEN, etc
     * prefer SHA256 to SHA3
