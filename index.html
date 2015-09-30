@@ -11,7 +11,41 @@
 <div class="content">
 <h1 class="libTop">xlProtocol_go</h1>
 
-<p>The Go language protocol library for XLattice.</p>
+<p>The Go language protocol library for XLattice.  The library includes</p>
+
+<ul>
+<li><strong>tlv16</strong>, code supporting the classic <em>Type-Length-Value</em> fields
+found in many network protocols.</li>
+<li><strong>chunks</strong>, a protocol used for intermixing large blocks of raw data
+with Protocol Buffer messages</li>
+<li><strong>aes_cnx</strong>, a protocol for establishing AES communications sessions</li>
+</ul>
+
+<h2>aes_cnx</h2>
+
+<p>This protocol is used by XLattice nodes for setting up communications
+sessions with Peers or other
+<a href="https://jddixon.github.io/xlNode_go">XLattice Nodes</a>
+where the initiating Node knows the public RSA key associated with an
+address.</p>
+
+<ul>
+<li>the initiator selects a temporary 256-bit/32-byte AES session key,
+encrypts it using the respondent&rsquo;s RSA public key and
+<a href="https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding">RSA OAEP</a>,
+and sends the result to the Peer</li>
+<li>the server chooses the actual 32-byte AES session key, encrypts that using
+the temporary AES key, and sends this back to the initiator</li>
+<li>the initiator uses the temporary AES key to decrypt the response, and
+extracts the real AES session key</li>
+<li>the session continues with both sides using the real session key</li>
+</ul>
+
+<p>The Nodes involved, the initiator and the respondent, may use any mutually
+agreeable protocol to continue the session.  That may include a procedure
+for changing the session key, as is prudent in any longer-term session.
+It is probably prudent to change the session key at least once an hour if
+there are significant levels of traffic on the link.</p>
 
 <h2>Chunks</h2>
 
@@ -19,6 +53,14 @@
 <a href="http://code.google.com/p/protobuf/">(Google&rsquo;s Protocol Buffer)</a> messages.
 For more information click
 <a href="chunks.html">here</a></p>
+
+<h2>Project Status</h2>
+
+<p>The <code>tlv16</code>, <code>aes_cnx</code>, and <code>chunks</code> packages are <strong>stable and well-tested</strong>.</p>
+
+<p>The <code>aes_cnx</code> package has been in use since mid-2014 in its present form.</p>
+
+<p><code>chunks</code> has not yet been used in production.</p>
 
 <h2>Licensing</h2>
 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />The material on this github.io website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
