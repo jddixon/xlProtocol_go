@@ -1,8 +1,11 @@
 xlProtocol_go/CHANGES
 
+v0.8.9
+    2015-12-25
+        * fix dead link
 v0.8.8
     2015-11-25
-        *
+        * minor edits to *.md                                       SLOC 1175
 v0.8.7
     2015-09-30
         * documented aes_cnx                                        SLOC 1175
@@ -49,4 +52,5 @@ v0.5.1
 v0.5.0
     2014-05-14
         * split off from xlattice_go/protocol                       SLOC 1050
+
 
