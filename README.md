@@ -50,4 +50,4 @@ The `aes_cnx` package has been in use since mid-2014 in its present form.
 ## On-line Documentation
 
 More information on the **xlProtocol_go** project can be found
-[here](://jddixon.github.io/xlProtocol_go)
+[here](https://jddixon.github.io/xlProtocol_go)
