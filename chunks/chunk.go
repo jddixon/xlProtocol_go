@@ -4,7 +4,7 @@ package chunks
 
 import (
 	"crypto/sha1"
-	//"code.google.com/p/go.crypto/sha3"
+	//"github.com/golang/x/crypto/sha3"
 	"encoding/binary"
 	"fmt"
 	xi "github.com/jddixon/xlNodeID_go"

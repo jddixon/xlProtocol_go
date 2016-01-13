@@ -4,7 +4,7 @@ package chunks
 
 import (
 	"bytes"
-	//"code.google.com/p/go.crypto/sha3"
+	//"github.com/golang/x/crypto/sha3"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha1"
