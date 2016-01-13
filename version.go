@@ -1,6 +1,6 @@
 package protocol
 
 const (
-	VERSION      = "0.8.9"
-	VERSION_DATE = "2015-12-25"
+	VERSION      = "0.8.10"
+	VERSION_DATE = "2016-01-13"
 )

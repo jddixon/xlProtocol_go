@@ -35,7 +35,7 @@ there are significant levels of traffic on the link.
 ## Chunks
 
 Chunks is a message protocol designed to be intermixed with Protobuf
-[(Google's Protocol Buffer)](http://code.google.com/p/protobuf/) messages.
+[(Google's Protocol Buffer)](http://github.com/golang/protobuf/) messages.
 For more information click
 [here](chunks.html)
 
