@@ -1,0 +1,9 @@
+cd ~/dev/go/src/github.com/jddixon/xlProtocol_go
+
+rm -rf chunks/tmp/*
+
+gofmt -w .
+
+pySloc -v -C go -X "^junk" $@      \
+    bash:countem        \
+ 

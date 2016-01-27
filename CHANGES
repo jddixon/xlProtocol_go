@@ -1,5 +1,8 @@
 xlProtocol_go/CHANGES
 
+v0.8.11
+    2016-01-26
+        * minor edits                                               SLOC 1180
 v0.8.10
     2016-01-13
         * fix imports from code.google.com                          SLOC 1175
@@ -55,6 +58,7 @@ v0.5.1
 v0.5.0
     2014-05-14
         * split off from xlattice_go/protocol                       SLOC 1050
+
 
 
 
