@@ -1,0 +1,59 @@
+-----BEGIN RSA PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoM2sBgX0ChP2JriXkOxS
+e2FjHYVzBGkNvgf0vIAa7FFYZi2pWmxBAVXgl3tTiB3quqqud/MbKqdejM6gkKBK
+v8f7hlcBQLD6BLIZ/RRfhIElc+WlDVfKSnBTB4va5qTQAgvuq5i8+oMj7G8WEy5d
+7cYucWyUJMtHvT4pCDtBWeeqQ62tByWjv34Ud/+A9Mjf0leiWxM3tiToVsqIKb4s
+zPjEShF9rvcNa9XEy1dKpcDz9Szbm2SlxOgM83fDDGtOq4SSCSqndtxrOvXXPB57
+H1mJV/FmerbXRPm5ERJVNIxtLk7Gr2Ce45FVlWyJGMhpfVlKkkk+bRQ02OFfazJI
+GQIDAQAB
+-----END RSA PUBLIC KEY-----
+xlProtocol_go v0.8.13
+2016-06-06 15:51:12
+# START CONTENT #
+xlProtocol_go
+ .copyright 803f3e50518123ef8a08d34f2238e89b62d0c9a2
+ .dvcz
+  projCfg 00a6023f375c98f80ca4f68d414ca05b48d66a4f
+  projCfg.local 74df99642141c978185dd28a630415837fc095bb
+  version 8f37b2645a9f92b9d33a5da0a296d83a481428e8
+ .gitignore 88549a39e8e421b4ac75aee4ada67ed12a14b4c4
+ CHANGES b81b229c82437f65c11c40877ad03fbdc027fdd4
+ LICENSE.md d1cecfadc47b23486f6bc8a863cfdde348c3eb46
+ README.md 8cefc8aa16eee87c6885495ea88acd22ebb5c804
+ TODO e2e8285fe08b0673c4df4690d7765f5fd2c00956
+ aes_cnx
+  TODO 0c684bf1491a7c1df21978ee60651009a3fa7d75
+  aesSession.go 30ea58687e06f54ec9d49b47f89c1b58e95b7a33
+  aesSession_test.go d656980ed50e9c8dc8615271643eef5557a7d68d
+  errors.go c1308ce105eb608727645cc1bb5d042dc5c06219
+  gocheck_test.go 8c09391fc06867954c23994334853d02ed350d71
+  helloAndReply.go 5e531a95084db21ea503afbc828dd07612fab8dc
+  helloAndReply_test.go 7f221dd976bb9bf770ed1f0f0e867b9ed7fc5cba
+ bkp2U 830248301c83a3b1eade5ca9a78a1a815ea28e80
+ chunks
+  TODO a62f88010408bb62193ce07440fa75aa4d194f9f
+  chunk.go 988144d12435436247ba06454835478c2359d569
+  chunkList.go 53aad51f3b1764fa36fae4a52d85c2fcae44232f
+  chunkListAssyDisassy_test.go ba6c6cbc5dafd7bbd52c4b772b8212658035de24
+  chunkList_test.go d25c8339b5fa55bfc1da47286b1db7e25dd6e917
+  chunk_test.go 34b67ac7a9f64b3aa416ee0491c795d2e91240a9
+  chunker.go cc467be27ae9352f114443a1b5cdc3d41a3aaf53
+  const.go 1fef83d994a6017cc935684a4f6b87398da0219e
+  digiList.go a7937ead7f3232095e81742ea8a902d9ca4b032c
+  digiListI.go da293b7971054e8a49ef29c84fb0c4ddc95860e0
+  errors.go b32a386531bcf1e34f4512925058d4cc1712190d
+  gocheck_test.go 2b156b2db9f5a0b9ddd927e37748fbb29378c81f
+ countem 54d1ce1b0cc8bb27a1bc3d015db8a377b26e8e18
+ ghpDoc
+  chunks.md 6d5e9926be899032203f3435d9f7cec6382fb396
+  index.md 8cffd9ab494c7222ca28dda9f7179a498194abf1
+ installit f464ac02cd754f230b6327860213aecedf2a910e
+ protocolI.go f171e697823200ce4c792392e0967b618c5eb0c4
+ styleit 20778937cec0653ca5621041bf30455207e40c1a
+ test.all ad0bf5533c0e43d55f01bfb4a8307252c670b4b1
+ tlv16.go 56d2f4ae8dcb7e1e43fe29a42834efd5af1cec14
+ tlv16_test.go 738d8db7a3c9685ac185b50dabe900a2ef16650a
+ version.go 778fa2e8d7ee23f8105fc664b3cca7238423d689
+# END CONTENT #
+
+m14X7RDecKohGT6I9tQRMRwnxbLT8IBpK9nZFk32rcJkm02ZiviZ8VpmJSghRO/vJ8wOWQPthK2mVnXNq0EdoQu2yxmYD1URi5id5ZhtGJceMRBaYEKy1muj4FyzFTfC1u4d3g+fQ/Ud3qNm1lYBjeiSXx88BYJa0QnJuWGdoWKnB7xu7rW7Fnu4M17upO7ZqrobkuV7WwHvz4ATMvpHybE4JvIB/Lniojy10DVSSIFjEV+Mriu7Hrv9iuScseVzOw2oiAEWj7VI5VpIL7Wcc/LQePx/xoPnFY3arRFSI926i0cri4p7L48MjyBO9fHz7MkwkQDTvap8nO+Vga/Mow==
