@@ -7,17 +7,19 @@ zPjEShF9rvcNa9XEy1dKpcDz9Szbm2SlxOgM83fDDGtOq4SSCSqndtxrOvXXPB57
 H1mJV/FmerbXRPm5ERJVNIxtLk7Gr2Ce45FVlWyJGMhpfVlKkkk+bRQ02OFfazJI
 GQIDAQAB
 -----END RSA PUBLIC KEY-----
-xlProtocol_go v0.8.13
-2016-06-06 15:51:12
+xlProtocol_go v0.8.14
+2016-07-04 19:37:49
 # START CONTENT #
 xlProtocol_go
  .copyright 803f3e50518123ef8a08d34f2238e89b62d0c9a2
  .dvcz
-  projCfg 00a6023f375c98f80ca4f68d414ca05b48d66a4f
+  builds d1756826117d7c6d2488eb4522f316b17f10a0a2
+  lastBuildList 75e32d6cefb72fcd0d7b2011a994af5e85dabd18
+  projCfg b2f68b7fe5ddd12e3958d1395612d0c934508c11
   projCfg.local 74df99642141c978185dd28a630415837fc095bb
-  version 8f37b2645a9f92b9d33a5da0a296d83a481428e8
- .gitignore 88549a39e8e421b4ac75aee4ada67ed12a14b4c4
- CHANGES b81b229c82437f65c11c40877ad03fbdc027fdd4
+  version e14c5ec1bb923290751bc090b45f24cb7c3e5783
+ .gitignore ec0f9002629753cd248c6a672ef3de695c30f4b7
+ CHANGES 0fb627716df3be2a23baac408122e6fb9c56c16a
  LICENSE.md d1cecfadc47b23486f6bc8a863cfdde348c3eb46
  README.md 8cefc8aa16eee87c6885495ea88acd22ebb5c804
  TODO e2e8285fe08b0673c4df4690d7765f5fd2c00956
@@ -46,6 +48,19 @@ xlProtocol_go
  countem 54d1ce1b0cc8bb27a1bc3d015db8a377b26e8e18
  ghpDoc
   chunks.md 6d5e9926be899032203f3435d9f7cec6382fb396
+  css
+   LICENSE.html5-boilerplate.md ded771b3245b190da0e81c76de5a80d41392c0a6
+   ghp.css 1d6ebe8a6cf8f61f4645a793cb087dfae2420f33
+   main.css 018ed80b8a6e6607bc7c08595fa5a7fa56853885
+   normalize.css cba40c7ce3d558d00ff79d7505ac3d348015ec9c
+  img
+   GitHub-Mark-32px.png fabe53eb72f9b6d3d47cd95aff31ffc45c2fdbf8
+   chunk.jpg de2b27e41f1547fc14b13399f5906b4303b49657
+   chunk2.jpg d0593d312dbb8ea837c17b28cb639726e29ea93b
+   cluster-with-clients.jpg c167d04c0c6b5736ef9fe4cdc3fcce1956fdea78
+   simple-cluster.jpg 6b223ddd25937c1ef75ef328f36fc3436f10bd62
+   xl-registration.jpg 15cbf951f9db173a45428b32dcec87aca83bbdf0
+   xlattice-2014.jpg f185aaad06db71acd9454f31054c62c56d36f37f
   index.md 8cffd9ab494c7222ca28dda9f7179a498194abf1
  installit f464ac02cd754f230b6327860213aecedf2a910e
  protocolI.go f171e697823200ce4c792392e0967b618c5eb0c4
@@ -53,7 +68,7 @@ xlProtocol_go
  test.all ad0bf5533c0e43d55f01bfb4a8307252c670b4b1
  tlv16.go 56d2f4ae8dcb7e1e43fe29a42834efd5af1cec14
  tlv16_test.go 738d8db7a3c9685ac185b50dabe900a2ef16650a
- version.go 778fa2e8d7ee23f8105fc664b3cca7238423d689
+ version.go 0fd4289382b1c4cbdea9748c31389f2001de8810
 # END CONTENT #
 
-m14X7RDecKohGT6I9tQRMRwnxbLT8IBpK9nZFk32rcJkm02ZiviZ8VpmJSghRO/vJ8wOWQPthK2mVnXNq0EdoQu2yxmYD1URi5id5ZhtGJceMRBaYEKy1muj4FyzFTfC1u4d3g+fQ/Ud3qNm1lYBjeiSXx88BYJa0QnJuWGdoWKnB7xu7rW7Fnu4M17upO7ZqrobkuV7WwHvz4ATMvpHybE4JvIB/Lniojy10DVSSIFjEV+Mriu7Hrv9iuScseVzOw2oiAEWj7VI5VpIL7Wcc/LQePx/xoPnFY3arRFSI926i0cri4p7L48MjyBO9fHz7MkwkQDTvap8nO+Vga/Mow==
+RMonlzECQ+5h5p0CXrsCxF8AoGPIuO+eotHgMcaozzjcebsFHXBRgrHonvX6gqo8PFoBTfmh9Oh12EgdXDhDpsPV0gwotNTJrOBHoDn20ygi3CcPQqxa27aBt9Oejl/lpTyLvSMwJUfq4cjMIxvPeRUII23u5r669VkuKTPtomb1Cmq3OQfRZjpJjHmWoDwrRTUFqPwFJeA6m9CAJWEYh7OqIYCFi3B8jg9+YddWb+sXDubgjt5VFfkNwX3GXjjqElmPMomqLkDO+OrYNm1wmI1UzDmUfdvYI3Zt5LOWybWAeJGhrqalzxswsbsw4bNBQaaxymyQWGco1GhZYOeJsw==
