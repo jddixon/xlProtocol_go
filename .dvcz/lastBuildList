@@ -7,20 +7,21 @@ zPjEShF9rvcNa9XEy1dKpcDz9Szbm2SlxOgM83fDDGtOq4SSCSqndtxrOvXXPB57
 H1mJV/FmerbXRPm5ERJVNIxtLk7Gr2Ce45FVlWyJGMhpfVlKkkk+bRQ02OFfazJI
 GQIDAQAB
 -----END RSA PUBLIC KEY-----
-xlProtocol_go v0.8.14
-2016-07-04 19:37:49
-# START CONTENT #
+xlProtocol_go v0.8.15
+2016-09-19 20:00:34
+# BEGIN CONTENT #
 xlProtocol_go
- .copyright 803f3e50518123ef8a08d34f2238e89b62d0c9a2
  .dvcz
-  builds d1756826117d7c6d2488eb4522f316b17f10a0a2
-  lastBuildList 75e32d6cefb72fcd0d7b2011a994af5e85dabd18
-  projCfg b2f68b7fe5ddd12e3958d1395612d0c934508c11
-  projCfg.local 74df99642141c978185dd28a630415837fc095bb
-  version e14c5ec1bb923290751bc090b45f24cb7c3e5783
+  builds da4a7174078fb216a32211cbcc678b126ec2fe92
+  copyright 803f3e50518123ef8a08d34f2238e89b62d0c9a2
+  lastBuildList e5350869679e0b9cec5ba00f9f2ec7a8f43450b5
+  license 5977a55c75bb4612004451a56b0b4c22d9d3311d
+  projCfg 8d426007a2c6cbc0bc2e08a1727be0b023d26b88
+  projCfg.local 0ac2eaf28b6b85cfe0b9554f2de28cfa81b2f9ca
+  version 8a54919ce69b512bb0c81d6aef53903538e6bdf4
  .gitignore ec0f9002629753cd248c6a672ef3de695c30f4b7
- CHANGES 0fb627716df3be2a23baac408122e6fb9c56c16a
- LICENSE.md d1cecfadc47b23486f6bc8a863cfdde348c3eb46
+ CHANGES b0e7e4024fe828ca83784aab67d053d9e80e278c
+ LICENSE-MIT.md d1cecfadc47b23486f6bc8a863cfdde348c3eb46
  README.md 8cefc8aa16eee87c6885495ea88acd22ebb5c804
  TODO e2e8285fe08b0673c4df4690d7765f5fd2c00956
  aes_cnx
@@ -45,7 +46,7 @@ xlProtocol_go
   digiListI.go da293b7971054e8a49ef29c84fb0c4ddc95860e0
   errors.go b32a386531bcf1e34f4512925058d4cc1712190d
   gocheck_test.go 2b156b2db9f5a0b9ddd927e37748fbb29378c81f
- countem 54d1ce1b0cc8bb27a1bc3d015db8a377b26e8e18
+ countem d7976ebf4745aa15447a4f6c069a911b431680b7
  ghpDoc
   chunks.md 6d5e9926be899032203f3435d9f7cec6382fb396
   css
@@ -68,7 +69,7 @@ xlProtocol_go
  test.all ad0bf5533c0e43d55f01bfb4a8307252c670b4b1
  tlv16.go 56d2f4ae8dcb7e1e43fe29a42834efd5af1cec14
  tlv16_test.go 738d8db7a3c9685ac185b50dabe900a2ef16650a
- version.go 0fd4289382b1c4cbdea9748c31389f2001de8810
+ version.go 58229f9a96a2d035e5bab233c6e84ef535f81ad9
 # END CONTENT #
 
-RMonlzECQ+5h5p0CXrsCxF8AoGPIuO+eotHgMcaozzjcebsFHXBRgrHonvX6gqo8PFoBTfmh9Oh12EgdXDhDpsPV0gwotNTJrOBHoDn20ygi3CcPQqxa27aBt9Oejl/lpTyLvSMwJUfq4cjMIxvPeRUII23u5r669VkuKTPtomb1Cmq3OQfRZjpJjHmWoDwrRTUFqPwFJeA6m9CAJWEYh7OqIYCFi3B8jg9+YddWb+sXDubgjt5VFfkNwX3GXjjqElmPMomqLkDO+OrYNm1wmI1UzDmUfdvYI3Zt5LOWybWAeJGhrqalzxswsbsw4bNBQaaxymyQWGco1GhZYOeJsw==
+IOXm+flVWgu1Ds8TN4/xVppE9hNuHCeD58MOKLc/nesUrIX1lm3x3Q+48Pxd3S4NCpcK2Za10jlif0Orh0bF6FkpaZ3N+Hk2Oh0rRmhoOfRZEqRemWjVW8Szvg1Ljx8pQOgu4QG2kF1vCWJhcUQ4eJk3Q/lXpFSIpSgkMhXwKM6dOfzfw6F/rZYOl5HnNJSrDARhj0Eewuq8I1p4t+5Xr56wtQNipN9eRPRajqKG1kM6+cOu5dQ1RYQNDLVmN7J4sGJjq0Efwuxb6d6HT1KlIUxY0YfE0trJg7BoGcM7Pa/Gtfs9gHDpCfKf4fbin85r0q9rtfi4gML/Wv/Ybi+INQ==
