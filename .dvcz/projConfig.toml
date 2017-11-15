@@ -1,0 +1,23 @@
+# projConfig.toml for xlProtocol_go
+
+[meta]
+    version = '0.1.0'
+
+[project]
+    name = 'xlProtocol_go'  # distro name
+    package = 'xlProtocol_go'  # internal name
+    main_lang = 'go'
+    version = '0.8.17'
+    version_date = '2017-11-15'
+    author = 'Jim Dixon'
+    author_email = 'jddixon@gmail.com'
+    copyright = '2014-2017'
+    description = 'XLattice protocol library for Go'
+    dev_status = 'pre-alpha'
+    license = 'mit'
+    relpath = 'go/src/github.com/jddixon/xlProtocol_go'
+    state = 'shared'
+    url = 'https://jddixon.github.io/xlProtocol_go'
+
+[go]
+    cmds=[]
