@@ -7,22 +7,19 @@ Giaje1YAJPNVBt3dlOA5lhBp4GpSYBskJ9UR2Zyt3lgAGK3dEwxYETLMh9VWEV8i
 k2lyCIE/V/CDb9eVDYQgYSJYrnQ/JAPST7NbcY8aI+/0l7QVBhLBpmOCvmS6ofvz
 /QIDAQAB
 -----END PUBLIC KEY-----
-xlProtocol_go v0.8.16
-2017-08-31 23:34:31
+xlProtocol_go
+2017-11-15 20:20:24
 # BEGIN CONTENT #
 xlProtocol_go
  .dvcz
-  builds 2c0d744f5c68a99cdd62bf704fceee25445ddc7f
-  copyright d468692d6e277c5e0d803a0b22b1f4bf8f5419bd
-  lastBuildList e93a8c24e7cb630876b599e10383f2f736f1bcd0
-  license 5977a55c75bb4612004451a56b0b4c22d9d3311d
+  builds 81dcd8d7018be2e83e758575d2075994de9dd4a7
+  lastBuildList 7c7e5dd7e1efb3a6304cd7239166aa05511c5046
   projCfg 8d426007a2c6cbc0bc2e08a1727be0b023d26b88
   projCfg.local 0ac2eaf28b6b85cfe0b9554f2de28cfa81b2f9ca
-  version d44dff366f9b21bad03ca7dba824404b93e6a3a7
+  projConfig.toml 48dad0055b6ded93fa17cd3a0cb59f69a86fc7dc
  .gitignore 4ac626e1e9b9dc380fa7b0ab060088b0c4a88215
- CHANGES 570452f10bbdbebe0d1658577c0fb51f5467cd57
+ CHANGES e9389fc2b729e7c087e5e891fee1b1e6ef358662
  LICENSE-MIT.md d1cecfadc47b23486f6bc8a863cfdde348c3eb46
- LICENSE.md d1cecfadc47b23486f6bc8a863cfdde348c3eb46
  README.md 8cefc8aa16eee87c6885495ea88acd22ebb5c804
  TODO e2e8285fe08b0673c4df4690d7765f5fd2c00956
  aes_cnx
@@ -65,13 +62,12 @@ xlProtocol_go
    xlattice-2014.jpg f185aaad06db71acd9454f31054c62c56d36f37f
   index.md 8cffd9ab494c7222ca28dda9f7179a498194abf1
  installit f464ac02cd754f230b6327860213aecedf2a910e
- projConfig.toml 0dd644a5d1f7d3b45a88d32433ab87ee792069cd
  protocolI.go f171e697823200ce4c792392e0967b618c5eb0c4
  styleit 20778937cec0653ca5621041bf30455207e40c1a
  test.all ad0bf5533c0e43d55f01bfb4a8307252c670b4b1
  tlv16.go 56d2f4ae8dcb7e1e43fe29a42834efd5af1cec14
  tlv16_test.go 738d8db7a3c9685ac185b50dabe900a2ef16650a
- version.go 81b8289a71f70096289c0bd516a859de31879aff
+ version.go 0f021b08b578a2c7aafb80b0f4528947903b07c1
 # END CONTENT #
 
-KL7wem9NACaijopG8o5i9OaAMKTl6Wknfgx0mdEy7UcO/3016t1iel0DjQEteXJ7x/ZRj16kM/n08CNFgWY2NYsDaYlxAkRxGwnprjrSIM6zpBWKhgK8ubG/yDcrKILifuwyt90a/YQ3OZIIgsbeGyyN/JVchx4ICC667nt3RfftPssJiqTgz1anDtaQ3RfWnNTnfsQyddGw3Lg8L+kE9gHbI6WriSsHKH57UWOVqXMuTiF5iWBGSrsdslNj3RWSz5ZnXFzLxZmQ6kxcV3OTZ0xuI5L/mi2Y/FDl/qh6lbGqbS1mkQFAYRbO0m+asdeu/6VxNSMW+MadxaE5I/cPJA==
+KEL1G8xRl271mIZqK4TYaeokwAgXMAVSogweBCgX//fpuJins+WYoc6xCbaXIyhuBe5LVMQF3LrlyERq9tR23oAplI0LrY70ovizWJj+uiFSacnqqv18kSyrV8BhmiH8FhBWfz/jQSG+iay7Njpb/bKO1Q4Oi6IuOqocXN6La9ihD2INGYp7yfzvFtnr5lG5oiTaRbTvYYquYsXP1gRcTLc1G98kxsk9roHo8Mtw1pVA7VFYizeT1+moLpO854p0tGCSb8Z15yavU3JywkyNNFLX3X8/mR6rNqIc4JTl0aEKaCzNT/8iu9KsOXS2CySpq5IpiW6kpqikZDsEgaOLoA==
